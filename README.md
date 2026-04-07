@@ -1,6 +1,6 @@
 # 🎓 Gestion des Étudiants - Édition Premium
 
-![Aperçu du projet](./preview.png)
+![Aperçu du projet](./prev.png)
 
 ## 🔗 Démo en Direct
 **[🚀 Accéder à l'application déployée sur Render](https://students-nayo.onrender.com)**
