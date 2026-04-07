@@ -11,11 +11,17 @@ function showForm() {
 async function addStudent() {
   const nom = document.getElementById("nom").value;
 
-  await fetch("/etudiants", {
+  const res = await fetch("/etudiants", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ nom })
   });
+
+  if (!res.ok) {
+    const errorData = await res.json();
+    showError(errorData.message || "Erreur lors de l'ajout.");
+    return;
+  }
 
   loadStudents();
 }
@@ -58,13 +64,24 @@ function addNote(id) {
 }
 
 async function sendNote(id) {
-  const note = Number(document.getElementById("note").value);
+  const inputVal = document.getElementById("note").value;
+  if (inputVal === "") {
+    showError("Veuillez saisir une note");
+    return;
+  }
+  const note = Number(inputVal);
 
-  await fetch("/notes", {
+  const res = await fetch("/notes", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ id, note })
   });
+
+  if (!res.ok) {
+    const errorData = await res.json();
+    showError(errorData.message || "Erreur lors de l'ajout de la note.");
+    return;
+  }
 
   loadStudents();
 }
@@ -155,3 +172,32 @@ async function loadMoyenne() {
   `;
 }
 
+// Fonction pour afficher les erreurs à l'utilisateur
+function showError(message) {
+  let toastContainer = document.getElementById("toast-container");
+  if (!toastContainer) {
+    toastContainer = document.createElement("div");
+    toastContainer.id = "toast-container";
+    // Utilisation des classes Toast de DaisyUI
+    toastContainer.className = "toast toast-top toast-center z-[100] pt-24";
+    document.body.appendChild(toastContainer);
+  }
+
+  const alertDiv = document.createElement("div");
+  alertDiv.className = "alert alert-error shadow-xl text-white font-bold w-auto";
+  alertDiv.innerHTML = `
+    <span class="flex items-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+      ${message}
+    </span>
+  `;
+
+  toastContainer.appendChild(alertDiv);
+
+  // Disparition automatique
+  setTimeout(() => {
+    alertDiv.style.opacity = "0";
+    alertDiv.style.transition = "opacity 0.5s ease";
+    setTimeout(() => alertDiv.remove(), 500);
+  }, 3500);
+}
