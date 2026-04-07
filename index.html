@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <title>Gestion Étudiants - Premium</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.css" rel="stylesheet" />
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brandDark: '#062629',
+            brandMint: '#94ffe5',
+            brandCard: '#0a3d42',
+            brandText: '#ffffff'
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            heading: ['Outfit', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #062629;
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+    }
+    h1, h2, h3, .heading-font {
+      font-family: 'Outfit', sans-serif;
+      text-transform: uppercase;
+    }
+    .text-mint { color: #94ffe5; }
+    .bg-mint { background-color: #94ffe5; }
+    
+    .nav-btn {
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    .nav-btn::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background-color: #94ffe5;
+      transition: width 0.3s ease;
+    }
+    .nav-btn:hover::after {
+      width: 100%;
+    }
+    .btn-mint {
+      background-color: #94ffe5;
+      color: #062629;
+      border: none;
+      font-weight: 700;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+    }
+    .btn-mint:hover {
+      background-color: #7ce6cc;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(148, 255, 229, 0.4);
+    }
+    .btn-outline-mint {
+      border: 2px solid #94ffe5;
+      color: #94ffe5;
+      background: transparent;
+      font-weight: 700;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+    }
+    .btn-outline-mint:hover {
+      background-color: #94ffe5;
+      color: #062629;
+      transform: translateY(-2px);
+    }
+    .card-feature {
+      background-color: #0a3d42;
+      border: 1px solid rgba(148, 255, 229, 0.1);
+      transition: all 0.3s ease;
+    }
+    .card-feature:hover {
+      border-color: #94ffe5;
+      transform: translateY(-5px);
+    }
+  </style>
+</head>
+
+<body class="min-h-screen text-brandText flex flex-col pt-24">
+
+  <!-- NAVIGATION -->
+  <nav class="fixed top-0 left-0 w-full bg-brandDark/90 backdrop-blur-md border-b justify-center flex border-white/10 z-50 py-4 px-6 md:px-12 transition-all">
+    <div class="max-w-7xl mx-auto w-full flex justify-between items-center">
+      <div class="text-2xl font-black heading-font tracking-wider"><span class="text-mint">🎓 GESTION</span> ÉTUDIANTS</div>
+      <div class="hidden md:flex gap-8 text-sm font-semibold tracking-widest uppercase">
+        <button class="nav-btn hover:text-mint" onclick="document.getElementById('app-section').scrollIntoView(); showForm()">Ajouter</button>
+        <button class="nav-btn hover:text-mint" onclick="document.getElementById('app-section').scrollIntoView(); loadStudents()">Liste</button>
+        <button class="nav-btn hover:text-mint" onclick="document.getElementById('app-section').scrollIntoView(); loadClassement()">Classement</button>
+        <button class="nav-btn hover:text-mint" onclick="document.getElementById('app-section').scrollIntoView(); loadMoyenne()">Moyenne</button>
+      </div>
+      <a href="#app-section" class="btn btn-mint rounded-full px-6 py-2 text-sm">Application</a>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <header class="relative px-6 py-24 md:py-32 flex flex-col items-center justify-center text-center max-w-5xl mx-auto">
+    <div class="absolute inset-0 z-[-1] overflow-hidden flex justify-center items-center pointer-events-none opacity-20">
+      <div class="w-[600px] h-[600px] bg-brandMint rounded-full blur-[150px]"></div>
+    </div>
+    
+    <h2 class="text-mint font-bold tracking-widest text-sm md:text-base mb-4 uppercase">No boring management</h2>
+    <h1 class="text-5xl md:text-7xl font-black leading-tight mb-8">
+      TON RÉSEAU D'<br/>ÉTUDIANTS <span class="text-transparent bg-clip-text bg-gradient-to-r from-brandMint to-emerald-300">GAME CHANGERS</span>
+    </h1>
+    <p class="text-lg md:text-xl text-gray-300 max-w-2xl mb-12">
+      Une application premium pour ajouter, suivre et classer tes étudiants. Des statistiques claires, une liste organisée et des opportunités d'excellence pour tous.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <button onclick="document.getElementById('app-section').scrollIntoView(); showForm();" class="btn btn-mint px-8 py-3 text-lg rounded-full">Ajouter un étudiant</button>
+      <button onclick="document.getElementById('features').scrollIntoView();" class="btn btn-outline-mint px-8 py-3 text-lg rounded-full">Découvrir l'app</button>
+    </div>
+  </header>
+
+  <!-- FEATURES SECTION -->
+  <section id="features" class="py-20 px-6 max-w-7xl mx-auto w-full">
+    <h2 class="text-3xl md:text-5xl font-black mb-12 text-center text-mint">OUR MEMBERSHIPS & TOOLS</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      
+      <!-- Feature 1 -->
+      <div class="card-feature rounded-2xl p-8 flex flex-col cursor-pointer" onclick="document.getElementById('app-section').scrollIntoView(); showForm();">
+        <div class="text-4xl mb-4 bg-brandDark w-16 h-16 flex justify-center items-center rounded-full text-mint border border-mint/20">➕</div>
+        <h3 class="text-xl font-bold mb-3">AJOUTER</h3>
+        <p class="text-sm text-gray-400 mb-6 flex-grow">Pour intégrer de nouveaux talents à ta base de données instantanément.</p>
+        <span class="text-mint font-bold text-sm tracking-wider hover:underline">ACCESS TOOL &rarr;</span>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="card-feature rounded-2xl p-8 flex flex-col cursor-pointer" onclick="document.getElementById('app-section').scrollIntoView(); loadStudents();">
+        <div class="text-4xl mb-4 bg-brandDark w-16 h-16 flex justify-center items-center rounded-full text-mint border border-mint/20">📋</div>
+        <h3 class="text-xl font-bold mb-3">LA LISTE</h3>
+        <p class="text-sm text-gray-400 mb-6 flex-grow">Accède à ton répertoire complet d'étudiants enregistrés dans le système.</p>
+        <span class="text-mint font-bold text-sm tracking-wider hover:underline">ACCESS TOOL &rarr;</span>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="card-feature rounded-2xl p-8 flex flex-col cursor-pointer" onclick="document.getElementById('app-section').scrollIntoView(); loadClassement();">
+        <div class="text-4xl mb-4 bg-brandDark w-16 h-16 flex justify-center items-center rounded-full text-mint border border-mint/20">🏆</div>
+        <h3 class="text-xl font-bold mb-3">CLASSEMENT</h3>
+        <p class="text-sm text-gray-400 mb-6 flex-grow">Visualise l'élite de ta classe avec un classement trié par notes ou performances.</p>
+        <span class="text-mint font-bold text-sm tracking-wider hover:underline">ACCESS TOOL &rarr;</span>
+      </div>
+
+      <!-- Feature 4 -->
+      <div class="card-feature rounded-2xl p-8 flex flex-col cursor-pointer" onclick="document.getElementById('app-section').scrollIntoView(); loadMoyenne();">
+        <div class="text-4xl mb-4 bg-brandDark w-16 h-16 flex justify-center items-center rounded-full text-mint border border-mint/20">📊</div>
+        <h3 class="text-xl font-bold mb-3">MOYENNE</h3>
+        <p class="text-sm text-gray-400 mb-6 flex-grow">Affiche les statistiques et moyennes globales de la classe pour un réseau d'élite.</p>
+        <span class="text-mint font-bold text-sm tracking-wider hover:underline">ACCESS TOOL &rarr;</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- APPLICATION CONTAINER -->
+  <section id="app-section" class="py-24 px-6 w-full max-w-5xl mx-auto flex flex-col items-center">
+    <div class="w-full bg-brandCard/80 backdrop-blur-xl border border-white/10 rounded-3xl p-8 md:p-12 shadow-2xl relative overflow-hidden">
+      <!-- Decorative element -->
+      <div class="absolute top-0 right-0 w-64 h-64 bg-brandMint opacity-[0.05] blur-[80px] rounded-full pointer-events-none"></div>
+      
+      <div class="text-center mb-10 relative z-10">
+        <h2 class="text-3xl font-black text-white mb-2">PORTAIL D'ADMINISTRATION</h2>
+        <p class="text-mint text-sm tracking-widest font-semibold uppercase">READY TO MANAGE?</p>
+      </div>
+      
+      <!-- MENU -->
+      <div class="flex flex-wrap gap-4 justify-center mb-10 relative z-10">
+        <button class="btn btn-mint px-6 rounded-full !border-none" onclick="showForm()">Ajouter</button>
+        <button class="btn btn-outline-mint px-6 rounded-full text-white" onclick="loadStudents()">Liste</button>
+        <button class="btn btn-outline-mint px-6 rounded-full text-white" onclick="loadClassement()">Classement</button>
+        <button class="btn btn-outline-mint px-6 rounded-full text-white" onclick="loadMoyenne()">Moyenne</button>
+      </div>
+
+      <!-- CONTENT JS-->
+      <div id="content" class="grid gap-4 w-full text-left text-white relative z-10"></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-white/10 py-10 text-center text-sm text-gray-500 flex flex-col items-center gap-4 mt-auto">
+    <div class="text-xl font-black heading-font tracking-widest"><span class="text-mint">🎓</span> GESTION ÉTUDIANTS</div>
+    <div class="flex gap-4">
+      <a href="#" class="hover:text-mint transition-colors">Members</a>
+      <a href="#" class="hover:text-mint transition-colors">Events</a>
+      <a href="#" class="hover:text-mint transition-colors">FAQ</a>
+    </div>
+    <p>© 2026 Crafted with precision. Inspired by Champions for Good.</p>
+  </footer>
+
+  <script src="fichier.js"></script>
+</body>
+</html>
