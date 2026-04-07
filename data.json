@@ -1,3 +1,13 @@
 {
-  "etudiants": []
+  "etudiants": [
+    {
+      "id": 1775562096986,
+      "nom": "Diagne",
+      "notes": [
+        12,
+        14,
+        12
+      ]
+    }
+  ]
 }
