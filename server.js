@@ -42,6 +42,13 @@ app.get("/etudiants", (req, res) => {
 app.post("/etudiants", (req, res) => {
   const data = lireData();
 
+  
+  // Vérification
+  if (!req.body.nom || typeof req.body.nom !== 'string' || req.body.nom.trim() === "" || !isNaN(req.body.nom)) {
+    return res.status(400).json({
+      message: "Le nom est requis",
+    });
+  }
   const nouvelEtudiant = {
     id: Date.now(),
     nom: req.body.nom,
@@ -71,6 +78,7 @@ app.post("/notes", (req, res) => {
     return res.status(400).json({
       message: "id et note sont obligatoires",
     });
+
   }
   if (typeof note !== "number" || note < 0 || note > 20) {
     return res.status(400).json({
@@ -261,6 +269,7 @@ app.get('/moyenne-generale', (req, res) => {
 });
 
 
+// Route principale pour la page d'accueil : renvoie le fichier index.html
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
