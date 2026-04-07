@@ -44,11 +44,18 @@ app.post("/etudiants", (req, res) => {
 
   
   // Vérification
-  if (!req.body.nom || typeof req.body.nom !== 'string' || req.body.nom.trim() === "" || !isNaN(req.body.nom)) {
+  if (!req.body.nom || typeof req.body.nom !== 'string' || req.body.nom.trim() === "") {
     return res.status(400).json({
       message: "Le nom est requis",
     });
   }
+
+  if (!isNaN(req.body.nom)) {
+    return res.status(400).json({
+      message: "Le nom ne peut pas être uniquement numérique",
+    });
+  }
+
   const nouvelEtudiant = {
     id: Date.now(),
     nom: req.body.nom,

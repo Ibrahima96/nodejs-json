@@ -1,16 +1,3 @@
 {
-  "etudiants": [
-    {
-      "id": 1775560669387,
-      "nom": "Maxime at maxime del",
-      "notes": [
-        12
-      ]
-    },
-    {
-      "id": 1775560762731,
-      "nom": "21",
-      "notes": []
-    }
-  ]
+  "etudiants": []
 }
